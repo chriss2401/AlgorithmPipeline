@@ -14,7 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\PipelineExecutor\AlgorithmPipeline.csproj" />
+    <ProjectReference Include="..\AlgorithmPipeline\AlgorithmPipeline.csproj" />
   </ItemGroup>
 
 </Project>

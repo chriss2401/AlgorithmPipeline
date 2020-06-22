@@ -12,24 +12,6 @@ namespace AlgorithmPipelineTest
         [TestMethod]
         public void PowAndDividePipelineTest()
         {
-            /*
-            Func<object, object> powAdd = (x) =>
-            {
-                var pow = Math.Pow(Convert.ToDouble(x), 2);
-                return pow + 5;
-            };
-
-            Func<object, object> divideTen = (x) => Convert.ToDouble(x) / 10;
-
-            var pipelineStepsTwo = new Dictionary<string, Func<object, object>>()
-            {
-                {"powerOfTwo", powAdd},
-                {"divideByTen", divideTen}
-            };
-
-            var resfd = divideTen(10);
-            */
-
             var pipelineSteps = new Dictionary<string, IPipelineStep>() 
             {
                 {"powerOfTwo", new PowerTwoStep()},
@@ -39,33 +21,57 @@ namespace AlgorithmPipelineTest
             var pipeline = new Pipeline(pipelineSteps);
             var res = pipeline.Run(2);
             var dataRes = Convert.ToDouble(res.Data);
-            Assert.IsTrue(dataRes == 0.4);
+            Assert.IsTrue(dataRes.Equals(0.4));
         }
 
         #region internal pipeline steps
         internal class PowerTwoStep : IPipelineStep
         {
+            public PipelineData Result { get; set; }
             public PowerTwoStep()
             {
+                Result = new PipelineData();
             }
 
             PipelineData IPipelineStep.Run(object input)
             {
                 var castedInput = Convert.ToDouble(input);
-                return new PipelineData(Math.Pow(castedInput, 2), typeof(Double));
+                Result = new PipelineData(Math.Pow(castedInput, 2), typeof(Double));
+                return Result;
+            }
+
+            void Save()
+            {
+                if (Result.Data != null)
+                {
+                    var data = Convert.ChangeType(Result.Data, Result.DataType);
+                    File.AppendAllText(@"out.txt", data.ToString());
+                }
             }
         }
 
         internal class DivideTenStep : IPipelineStep
         {
+            public PipelineData Result { get; set; }
             public DivideTenStep()
             {
+                Result = new PipelineData();
             }
 
             PipelineData IPipelineStep.Run(object input)
             {
                 var castedInput = Convert.ToDouble(input);
-                return new PipelineData(castedInput/10, typeof(Double));
+                Result = new PipelineData(castedInput / 10, typeof(Double));
+                return Result;
+            }
+
+            void Save()
+            {
+                if (Result.Data != null)
+                {
+                    var data = Convert.ChangeType(Result.Data, Result.DataType);
+                    File.AppendAllText(@"out.txt", data.ToString());
+                }
             }
         }
         #endregion

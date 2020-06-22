@@ -34,7 +34,7 @@ namespace AlgorithmPipeline
             {
                 res = pipelineStep.Value.Run(input);
                 Results[pipelineStep.Key] = res;
-                input = (res.DataType != null) ? Convert.ChangeType(res.Data, res.DataType);
+                input = (res.DataType != null) ? Convert.ChangeType(res.Data, res.DataType) : res.Data;
             }
 
             return res;

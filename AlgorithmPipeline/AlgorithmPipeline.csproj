@@ -2,6 +2,15 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Version>0.1.0</Version>
+    <Authors>Christos Apostolopoulos</Authors>
+    <Company />
+    <Description>A small C# solution which allows putting different numerical operations / algorithms in a sequential order and executing them afterwards.</Description>
+    <PackageProjectUrl></PackageProjectUrl>
+    <RepositoryUrl>https://github.com/chriss2401/AlgorithmPipeline</RepositoryUrl>
+    <PackageTags>pipeline, c#, .net</PackageTags>
+    <PackageReleaseNotes>First beta version of pipeline.</PackageReleaseNotes>
   </PropertyGroup>
 
 </Project>
